@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form HTML B2Cor</title>
+</head>
+
+<body>
+    <form id="form_b2Cor">
+        <div>
+            <label for="name">Name: </label>
+            <input type="text" name="nome" id="name" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email_form" required>
+        </div>
+        <div>
+            <label for="phone">DDD</label>
+            <input type="tel" name="ddd" id="ddd" required>
+            <label for="phone">Phone</label>
+            <input type="tel" name="telefone" id="phone_form" required>
+        </div>
+        <div>
+            <button type="submit">Enviar</button>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+        <script src="https://pols.agencialink.com.br/resources/js/api.js"></script>
+        <script>
+            var b2cor_key = '5ef0ef52f4a09399764bcd7fbda2ed3e';
+            var b2cor = new b2cor(b2cor_key);
+        </script>
+        <script>
+            const formSendToB2Cor = document.querySelector('form#form_b2Cor')
+
+            formSendToB2Cor.addEventListener('submit', (e) => {
+
+                function onsucess() {
+                    window.alert('E-Mail Send!')
+                }
+                function onfailed() {
+                    window.alert('Form failed')
+                }
+
+                e.preventDefault()
+                console.log(typeof b2cor)
+
+                var objeto = new Object()
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email_form').value;
+                const ddd = document.getElementById('ddd').value;
+                const phone = document.getElementById('phone_form').value;
+
+                objeto.nome = name;
+                objeto.email = email;
+                objeto.ddd = ddd;
+                objeto.telefone = phone;
+
+                try {
+                    console.log(b2cor)
+                    console.log(JSON.stringify(objeto));
+                    b2cor.cadastrar(objeto, onsucess, onfailed)
+
+                } catch (error) {
+                    console.log(error)
+                }
+            })
+        </script>
+</body>
+
+</html>
